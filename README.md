@@ -47,6 +47,8 @@ in the distance. You need to find Meg quickly and get out of here.
 |cr| Cry softly to yourself.
 > You hear a rustle in the trees and your breath catches.
 >> forest cry
+
+>>>
 ```
 
 The player will see something like this:
@@ -103,9 +105,11 @@ When they press Enter, the window will be cleared and they will go to the next s
   - If you only create one action and the abbreviation is empty (`||`), the action description will not be shown. The
 player will see `[Press ENTER to continue.]` and when they press Enter, they'll automatically go to the next scene.
   - If there are no actions in a scene, that scene will be a Game Over.
+- End the block with a `>>>`.
 
-You can put multiple blocks in the same text file, or split them between files. It doesn't matter. For bigger adventures,
-you'll want to organize your scenes into multiple files (one scene per file is best) and multiple folders.
+You can put multiple blocks in the same text file, or split them between files. It doesn't matter, but if there is more than 
+one block in a file, they *have* to be separated by a `>>>`. For bigger adventures, you'll want to organize your scenes into 
+multiple files (one scene per file is best) and multiple folders.
 
 ## Technical stuff
 
