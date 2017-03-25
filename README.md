@@ -12,7 +12,7 @@ If you've ever read a Choose Your Own Adventure book or played Strongbad's game 
 play.
 
 ## Is it hard to use?
-Nope. The grammar is simple and you don't need to know how to code. But you do need to find three symbols on your keyboard 
+Nope. The grammar is simple and you don't need to know how to code. But you do need to find two symbols on your keyboard 
 that you may not use a lot:
 
 `>`: The right caret. You usually press Shift+. (shift-period) to type this.
