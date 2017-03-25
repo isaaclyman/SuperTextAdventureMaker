@@ -2,28 +2,29 @@
 A super simple tool for creating text adventures. Currently under construction.
 
 ## What is it?
-SuperTextAdventureMaker (STAM) is a tool that aids the creation of retro-style text adventures (interactive fiction) that 
-are played in a Windows console.
+SuperTextAdventureMaker (STAM) is a tool that lets you create retro-style text adventures (interactive fiction) that can
+be played on Windows computers.
 
-Text adventures are a style of video game where on every turn the player is given a scene description and a set of actions.
+Text adventures are a style of video game where on every turn the player sees a scene description and a set of actions.
 Each action can lead to a different scene. The player reads scenes and chooses actions until the game is over.
 
 If you've ever read a Choose Your Own Adventure book or played Strongbad's game "Thy Dungeonman", you already know how to
 play.
 
 ## Is it hard to use?
-Nope. The syntax is simple and you don't need to know how to code. But you do need to find three symbols on your keyboard that you may not use a lot:
+Nope. The grammar is simple and you don't need to know how to code. But you do need to find three symbols on your keyboard 
+that you may not use a lot:
 
 `>`: The right caret. You usually press Shift+. (shift-period) to type this.
 
 `` ` ``: The backtick. This is not an apostrophe! It's usually on the upper-left corner of your keyboard.
 
-`|`: The pipe. This is usually above the Enter key. It may look like two vertical lines stacked end-to-end vertically.
+`|`: The pipe. This is usually above the Enter key. It may look like two vertical lines stacked on top of each other.
 
 ## How does it work?
 To begin, create a new folder on your computer. You can create more folders inside of this folder, to as many levels as
-you want; STAM will read everything. Then create a text file (it can have the extension ".txt", ".text" or ".stam"). This
-text file will contain part (or all) of your game content.
+you want; STAM will read everything. Then create a text file (the file name can end in the extensions ".txt", ".text" or
+".stam"). This text file will contain part (or all) of your game content.
 
 STAM text files are composed of *blocks*. Each block has a scene, a set of actions, and results for each action. A block 
 looks like this:
@@ -111,10 +112,10 @@ you'll want to organize your scenes into multiple files (one scene per file is b
 ## Technical stuff
 
 ### Goals
-This project should produce a Windows executable that is usable by people with little to no programming knowledge. It will 
+This project should produce a Windows executable that is usable by people with no programming knowledge. It will 
 do the following:
 - Recursively search text files in a given folder. All files ending in ".txt", ".text", or ".stam" will be concatenated 
-together.
+together in memory.
 - Parse these files using a simple, proprietary syntax.
 - Provide human-readable error messages when unexpected syntax is discovered.
 - Interpret named scene descriptions, actions (with shortcut keys) and action results from the concatenated files.
