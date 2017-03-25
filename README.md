@@ -17,8 +17,6 @@ that you may not use a lot:
 
 `>`: The right caret. You usually press Shift+. (shift-period) to type this.
 
-`` ` ``: The backtick. This is not an apostrophe! It's usually on the upper-left corner of your keyboard.
-
 `|`: The pipe. This is usually above the Enter key. It may look like two vertical lines stacked on top of each other.
 
 ## How does it work?
