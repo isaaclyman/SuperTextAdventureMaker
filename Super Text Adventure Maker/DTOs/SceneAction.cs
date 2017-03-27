@@ -4,7 +4,8 @@
     {
         public string Abbreviation { get; set; }
         public string Description { get; set; }
-        public string Result { get; set; }
         public string NextScene { get; set; }
+        public string Result { get; set; }
+        public Scene Scene { get; set; }
     }
 }

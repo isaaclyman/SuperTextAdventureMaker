@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using Super_Text_Adventure_Maker.DTOs;
 
 namespace Super_Text_Adventure_Maker.Helpers
@@ -16,6 +14,7 @@ namespace Super_Text_Adventure_Maker.Helpers
             var scenes = SceneParseHelper.GetScenes(paths).ToList();
 
             // Adventure-wide validation methods
+            exceptions.Add(NoDuplicateScenesExist(scenes));
             exceptions.Add(OneEntrySceneExists(scenes));
 
             // Scene-specific validation methods
@@ -25,10 +24,13 @@ namespace Super_Text_Adventure_Maker.Helpers
 
                 // Scene-wide action validation methods
                 var actionBlocks = SceneParseHelper.GetActions(scene.Text).ToList();
-                var actions = ActionParseHelper.GetSceneActions(actionBlocks).ToList();
+                var actions = ActionParseHelper.GetSceneActions(scene, actionBlocks).ToList();
 
+                exceptions.Add(AllNextScenesExist(scenes, actions));
                 exceptions.Add(AtLeastOneActionHasNextScene(scene, actions));
                 exceptions.Add(DefaultActionIsValid(scene, actions));
+                exceptions.Add(NoDuplicateActionsExistInScene(scene, actions));
+                exceptions.Add(SceneIsNotEndlessLoop(scene, actions));
 
                 // Action-specific validation methods
                 foreach (var action in actions)
@@ -37,10 +39,7 @@ namespace Super_Text_Adventure_Maker.Helpers
                     exceptions.Add(ActionHasResultOrNextScene(scene, action));
                 }
             }
-
-            // TODO: Validate that every "next scene" actually exists
-            // TODO: Validate that there are no duplicate scene names
-            // TODO: Validate that there are no duplicate action abbreviations or action descriptions in a scene
+            
             // TODO: Validate that a scene doesn't only have itself as a next scene
 
             return exceptions.Where(ex => ex != null).ToList();
@@ -61,6 +60,30 @@ namespace Super_Text_Adventure_Maker.Helpers
             if (string.IsNullOrWhiteSpace(action.Result) && string.IsNullOrWhiteSpace(action.NextScene))
             {
                 return ActionValidationError("The action does not have a result or a next scene.", scene, action);
+            }
+
+            return null;
+        }
+
+        private static Exception AllNextScenesExist(IEnumerable<Scene> scenes, IEnumerable<SceneAction> sceneActions)
+        {
+            var sceneNames = scenes.Select(scene => scene.Name);
+
+            var actionsWithNonexistentNextScenes =
+                sceneActions.Where(sceneAction => !sceneNames.Contains(sceneAction.NextScene)).ToList();
+
+            if (actionsWithNonexistentNextScenes.Count > 0)
+            {
+                var errorMessage = new StringBuilder();
+                errorMessage.AppendLine("Some of the next scenes used in actions do not exist.");
+                errorMessage.AppendLine("Scenes not found:");
+
+                foreach (var action in actionsWithNonexistentNextScenes)
+                {
+                    errorMessage.AppendLine(
+                        $"File '{action.Scene.FilePath}, scene '{action.Scene.Name}, action '{action.Abbreviation}'");
+                    return GeneralValidationError(errorMessage.ToString());
+                }
             }
 
             return null;
@@ -107,9 +130,75 @@ namespace Super_Text_Adventure_Maker.Helpers
             return null;
         }
 
+        private static Exception NoDuplicateActionsExistInScene(Scene scene, List<SceneAction> actions)
+        {
+            var duplicateAbbreviations =
+                actions.GroupBy(action => action.Abbreviation).Where(group => group.Count() > 1).ToList();
+            var duplicateDescriptions =
+                actions.GroupBy(action => action.Description).Where(group => group.Count() > 1).ToList();
+
+            if (duplicateAbbreviations.Count <= 0 && duplicateDescriptions.Count <= 0)
+            {
+                return null;
+            }
+
+            var errorMessage = new StringBuilder();
+            if (duplicateAbbreviations.Count > 0)
+            {
+                errorMessage.AppendLine(
+                    "Duplicate action abbreviations were found in the scene. Each action should have a unique abbreviation.");
+                errorMessage.AppendLine("Duplicate abbreviations:");
+
+                foreach (var group in duplicateAbbreviations)
+                {
+                    var action = group.First();
+                    errorMessage.AppendLine(action.Abbreviation);
+                }
+            }
+
+            if (duplicateDescriptions.Count > 0)
+            {
+                errorMessage.AppendLine(
+                    "Duplicate action descriptions were found in the scene. Each action should have a unique description.");
+                errorMessage.AppendLine("Duplicate descriptions:");
+
+                foreach (var group in duplicateDescriptions)
+                {
+                    var action = group.First();
+                    errorMessage.AppendLine(action.Description);
+                }
+            }
+
+            return SceneValidationError(errorMessage.ToString(), scene);
+        }
+
+        private static Exception NoDuplicateScenesExist(IEnumerable<Scene> scenes)
+        {
+            var duplicateScenes = scenes.GroupBy(scene => scene.Name).Where(group => group.Count() > 1).ToList();
+
+            if (duplicateScenes.Count > 0)
+            {
+                var errorMessage = new StringBuilder();
+                errorMessage.AppendLine("More than one scene has the same name. Each scene should have a unique name.");
+                errorMessage.AppendLine("Duplicate scene names:");
+
+                foreach (var sceneGroup in duplicateScenes)
+                {
+                    foreach (var scene in sceneGroup)
+                    {
+                        errorMessage.AppendLine($"File '{scene.FilePath}', scene '{scene.Name}'");
+                    }
+                }
+
+                return GeneralValidationError(errorMessage.ToString());
+            }
+            
+            return null;
+        }
+
         private static Exception OneEntrySceneExists(IEnumerable<Scene> scenes)
         {
-            var entryScenes = scenes.Where(scene => scene.SceneName.Trim() == string.Empty).ToList();
+            var entryScenes = scenes.Where(scene => scene.Name.Trim() == string.Empty).ToList();
             
             if (entryScenes.Count == 0)
             {
@@ -136,6 +225,16 @@ namespace Super_Text_Adventure_Maker.Helpers
             return null;
         }
 
+        private static Exception SceneIsNotEndlessLoop(Scene scene, List<SceneAction> actions)
+        {
+            if (actions.All(action => action.NextScene == scene.Name))
+            {
+                return SceneValidationError("The scene is an endless loop because all its actions use it as a next scene.", scene);
+            }
+
+            return null;
+        }
+
         private static Exception SceneHasDescription(Scene scene)
         {
             var sceneDescription = SceneParseHelper.GetSceneDescription(scene.Text);
@@ -155,14 +254,14 @@ namespace Super_Text_Adventure_Maker.Helpers
 
         private static Exception SceneValidationError(string message, Scene errorScene)
         {
-            return new Exception($"ERROR in '{errorScene.FilePath}', scene '{errorScene.SceneName}': {message}");
+            return new Exception($"ERROR in '{errorScene.FilePath}', scene '{errorScene.Name}': {message}");
         }
 
         private static Exception ActionValidationError(string message, Scene errorScene, SceneAction errorAction)
         {
             return
                 new Exception(
-                    $"ERROR in '{errorScene.FilePath}', scene '{errorScene.SceneName}, action '{errorAction.Abbreviation}': {message}");
+                    $"ERROR in '{errorScene.FilePath}', scene '{errorScene.Name}, action '{errorAction.Abbreviation}': {message}");
         }
     }
 }

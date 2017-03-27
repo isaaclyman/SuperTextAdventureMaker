@@ -9,7 +9,7 @@ namespace Super_Text_Adventure_Maker.Helpers
     {
         // Given an enumerable list of action blocks, returns an enumerable list of SceneAction objects
         // SceneAction.NextScene and SceneAction.Result may be null
-        public static IEnumerable<SceneAction> GetSceneActions(IEnumerable<string> actions)
+        public static IEnumerable<SceneAction> GetSceneActions(Scene scene, IEnumerable<string> actions)
         {
             return actions.Select(action =>
             {
@@ -59,7 +59,8 @@ namespace Super_Text_Adventure_Maker.Helpers
                     Abbreviation = abbreviation,
                     Description = description,
                     NextScene = nextScene,
-                    Result = result
+                    Result = result,
+                    Scene = scene
                 };
             }).ToList();
         }

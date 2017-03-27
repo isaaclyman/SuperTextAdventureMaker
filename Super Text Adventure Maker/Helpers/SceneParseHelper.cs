@@ -31,7 +31,7 @@ namespace Super_Text_Adventure_Maker.Helpers
                 var scenes = FileParseHelper.SplitByScene(text);
                 return
                     scenes.Select(
-                        scene => new Scene { FilePath = path, SceneName = GetSceneName(scene), Text = scene });
+                        scene => new Scene { FilePath = path, Name = GetSceneName(scene), Text = scene });
             });
         }
 
