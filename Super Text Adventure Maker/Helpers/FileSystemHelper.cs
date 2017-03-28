@@ -16,7 +16,7 @@ namespace Super_Text_Adventure_Maker.Helpers
             return files.Select(FileParseHelper.GetStamFile).ToList();
         }
 
-        public static void ValidateFiles(List<string> files)
+        public static void ValidateFiles(List<StamFile> files)
         {
             var exceptions = ValidationHelper.ValidateFiles(files);
             if (exceptions.Count <= 0)
@@ -31,11 +31,6 @@ namespace Super_Text_Adventure_Maker.Helpers
 
             throw new Exception(
                 "Your adventure could not be built because of the above errors. Please fix them and try again.");
-        }
-
-        private static string ConcatFiles(List<string> paths)
-        {
-            return string.Join("\n\n", paths.Select(File.ReadAllText));
         }
 
         private static IEnumerable<string> SearchStamFiles(string folder)
