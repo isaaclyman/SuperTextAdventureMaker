@@ -6,7 +6,7 @@ using Super_Text_Adventure_Maker.DTOs;
 
 namespace Super_Text_Adventure_Maker.Helpers
 {
-    internal static class FileSystemHelper
+    public static class FileSystemHelper
     {
         public static List<StamFile> GetStamFiles(List<string> paths)
         {

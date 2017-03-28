@@ -31,7 +31,7 @@ namespace Super_Text_Adventure_Maker.Helpers
         }
 
         // Given the text content of a file, returns a list of unstructured scene blocks
-        private static List<string> SplitByScene(string text)
+        private static IEnumerable<string> SplitByScene(string text)
         {
             return
                 text.Split(new[] {">>>"}, StringSplitOptions.RemoveEmptyEntries)

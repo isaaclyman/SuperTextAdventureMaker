@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Super_Text_Adventure_Maker.DTOs;
@@ -9,17 +8,17 @@ namespace Super_Text_Adventure_Maker.Helpers
 {
     public static class SceneParseHelper
     {
-        // Given scene text, returns a list of unstructured action blocks
-        public static IEnumerable<string> GetActions(string text)
+        // Given scene text, returns an enumerable list of SceneAction
+        public static IEnumerable<SceneAction> GetSceneActions(Scene scene)
         {
-            var trimmedText = text.Trim();
-            var actionsStart = trimmedText.IndexOf("|", StringComparison.Ordinal);
-
-            var actionsSection = trimmedText.Substring(actionsStart);
+            var actionsStart = scene.Text.IndexOf("|", StringComparison.Ordinal);
+            var actionsSection = scene.Text.Substring(actionsStart);
 
             // Split by a pipe that is followed by one or more non-whitespace, non-pipe characters and then a final pipe.
             // Lookahead means that only the first pipe is removed.
-            return Regex.Split(actionsSection, @"\|(?=[^\s\|]*\|)");
+            var actionBlocks = Regex.Split(actionsSection, @"\|(?=[^\s\|]*\|)");
+
+            return actionBlocks.Select(actionBlock => ActionParseHelper.GetSceneAction(scene, actionBlock)).ToList();
         }
 
         // Given scene text, returns the trimmed scene description

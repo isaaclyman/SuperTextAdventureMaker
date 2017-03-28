@@ -23,8 +23,7 @@ namespace Super_Text_Adventure_Maker.Helpers
                 exceptions.Add(SceneHasDescription(scene));
 
                 // Scene-wide action validation methods
-                var actionBlocks = SceneParseHelper.GetActions(scene.Text).ToList();
-                var actions = ActionParseHelper.GetSceneActions(scene, actionBlocks).ToList();
+                var actions = SceneParseHelper.GetSceneActions(scene).ToList();
 
                 exceptions.Add(AllNextScenesExist(scenes, actions));
                 exceptions.Add(AtLeastOneActionHasNextScene(scene, actions));
