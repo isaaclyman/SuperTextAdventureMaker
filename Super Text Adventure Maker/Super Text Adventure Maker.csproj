@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applications\ToolsApplication.cs" />
+    <Compile Include="Configuration\Strings.cs" />
     <Compile Include="DTOs\SceneAction.cs" />
     <Compile Include="DTOs\Scene.cs" />
     <Compile Include="DTOs\StamFile.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Parsing\FileParseHelper.cs" />
     <Compile Include="Parsing\FileSystemHelper.cs" />
     <Compile Include="Parsing\SceneParseHelper.cs" />
+    <Compile Include="UserInterface\UserInterfaceHelper.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,9 +60,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
