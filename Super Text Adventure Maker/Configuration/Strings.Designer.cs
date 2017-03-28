@@ -106,11 +106,30 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (?) for help, (p) to play a game package, (l) to load a saved game,
+        ///(v) to validate a project, (b) to build/test a project, (k) to package up a finished project .
+        /// </summary>
+        internal static string Tools_Menu {
+            get {
+                return ResourceManager.GetString("Tools_Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to SUPER TEXT ADVENTURE MAKER..
         /// </summary>
         internal static string Tools_Welcome {
             get {
                 return ResourceManager.GetString("Tools_Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What would you like to do?.
+        /// </summary>
+        internal static string Tools_WhatToDo {
+            get {
+                return ResourceManager.GetString("Tools_WhatToDo", resourceCulture);
             }
         }
         

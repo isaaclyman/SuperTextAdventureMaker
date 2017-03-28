@@ -11,6 +11,12 @@ namespace Super_Text_Adventure_Maker.UserInterface
             return Console.ReadLine();
         }
 
+        public static char GetNextKey()
+        {
+            Console.Write(Strings.UserInterface_StamPrompt + @" ");
+            return Console.ReadKey(false).KeyChar;
+        }
+
         public static void OutputError(Exception error)
         {
             Console.Error.WriteLine(error.Message);

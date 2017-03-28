@@ -132,8 +132,15 @@
   <data name="General_Scene" xml:space="preserve">
     <value>scene</value>
   </data>
+  <data name="Tools_Menu" xml:space="preserve">
+    <value>(?) for help, (p) to play a game package, (l) to load a saved game,
+(v) to validate a project, (b) to build/test a project, (k) to package up a finished project </value>
+  </data>
   <data name="Tools_Welcome" xml:space="preserve">
     <value>Welcome to SUPER TEXT ADVENTURE MAKER.</value>
+  </data>
+  <data name="Tools_WhatToDo" xml:space="preserve">
+    <value>What would you like to do?</value>
   </data>
   <data name="UserInterface_PressEnterToContinue" xml:space="preserve">
     <value>[Press ENTER to continue.]</value>

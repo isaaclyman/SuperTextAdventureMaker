@@ -1,2 +1,9 @@
 C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\Super Text Adventure Maker\bin\Debug\Super Text Adventure Maker.exe.config
 C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\bin\Debug\Super Text Adventure Maker.exe.config
+C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\bin\Debug\Super Text Adventure Maker.exe
+C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\bin\Debug\Super Text Adventure Maker.pdb
+C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\obj\Debug\Super Text Adventure Maker.csprojResolveAssemblyReference.cache
+C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\obj\Debug\Super_Text_Adventure_Maker.Configuration.Strings.resources
+C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\obj\Debug\Super Text Adventure Maker.csproj.GenerateResource.Cache
+C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\obj\Debug\Super Text Adventure Maker.exe
+C:\Users\isaac\Dropbox\Super Text Adventure Maker\Super Text Adventure Maker\obj\Debug\Super Text Adventure Maker.pdb

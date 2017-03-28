@@ -9,6 +9,14 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             UserInterfaceHelper.OutputLine(Strings.Tools_Welcome);
             UserInterfaceHelper.OutputLine();
+            ShowMenu();
+        }
+
+        private static void ShowMenu()
+        {
+            UserInterfaceHelper.OutputLine(Strings.Tools_WhatToDo);
+            UserInterfaceHelper.OutputLine(Strings.Tools_Menu);
+            var selection = UserInterfaceHelper.GetNextKey();
         }
     }
 }
