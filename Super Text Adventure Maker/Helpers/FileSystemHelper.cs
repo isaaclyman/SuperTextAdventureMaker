@@ -2,24 +2,21 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Super_Text_Adventure_Maker.DTOs;
 
 namespace Super_Text_Adventure_Maker.Helpers
 {
     internal static class FileSystemHelper
     {
-        public static string GetConcatenatedFiles(string baseFolder = null)
+        public static List<StamFile> GetStamFiles(List<string> paths)
         {
-            baseFolder = baseFolder ?? Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-
+            var baseFolder = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             var files = SearchStamFiles(baseFolder);
-            ValidateFiles(files);
 
-            
+            return files.Select(FileParseHelper.GetStamFile).ToList();
         }
 
-        private static void ValidateFiles(List<string> files)
+        public static void ValidateFiles(List<string> files)
         {
             var exceptions = ValidationHelper.ValidateFiles(files);
             if (exceptions.Count <= 0)
@@ -27,11 +24,13 @@ namespace Super_Text_Adventure_Maker.Helpers
                 return;
             }
 
-            Console.WriteLine("Your adventure has errors! Please fix them and try again:");
             foreach (var ex in exceptions)
             {
                 Console.WriteLine(ex.Message);
             }
+
+            throw new Exception(
+                "Your adventure could not be built because of the above errors. Please fix them and try again.");
         }
 
         private static string ConcatFiles(List<string> paths)
@@ -39,7 +38,7 @@ namespace Super_Text_Adventure_Maker.Helpers
             return string.Join("\n\n", paths.Select(File.ReadAllText));
         }
 
-        private static List<string> SearchStamFiles(string folder)
+        private static IEnumerable<string> SearchStamFiles(string folder)
         {
             var files =
                 Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories)

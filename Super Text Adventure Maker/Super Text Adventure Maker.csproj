@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DTOs\SceneAction.cs" />
     <Compile Include="DTOs\Scene.cs" />
+    <Compile Include="DTOs\StamFile.cs" />
     <Compile Include="Helpers\ActionParseHelper.cs" />
     <Compile Include="Helpers\FileParseHelper.cs" />
     <Compile Include="Helpers\FileSystemHelper.cs" />

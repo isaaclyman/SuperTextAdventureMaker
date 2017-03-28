@@ -8,10 +8,10 @@ namespace Super_Text_Adventure_Maker.Helpers
 {
     public static class ValidationHelper
     {
-        public static List<Exception> ValidateFiles(List<string> paths)
+        public static List<Exception> ValidateFiles(List<StamFile> files)
         {
             var exceptions = new List<Exception>();
-            var scenes = SceneParseHelper.GetScenes(paths).ToList();
+            var scenes = FileParseHelper.GetScenes(files).ToList();
 
             // Adventure-wide validation methods
             exceptions.Add(NoDuplicateScenesExist(scenes));
@@ -39,8 +39,6 @@ namespace Super_Text_Adventure_Maker.Helpers
                     exceptions.Add(ActionHasResultOrNextScene(scene, action));
                 }
             }
-            
-            // TODO: Validate that a scene doesn't only have itself as a next scene
 
             return exceptions.Where(ex => ex != null).ToList();
         }

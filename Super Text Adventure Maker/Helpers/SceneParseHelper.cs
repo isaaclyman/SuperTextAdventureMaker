@@ -22,19 +22,6 @@ namespace Super_Text_Adventure_Maker.Helpers
             return Regex.Split(actionsSection, @"\|(?=[^\s\|]*\|)");
         }
 
-        // Given an enumerable list of file paths, returns an enumerable list of Scene objects
-        public static IEnumerable<Scene> GetScenes(IEnumerable<string> paths)
-        {
-            return paths.SelectMany(path =>
-            {
-                var text = File.ReadAllText(path);
-                var scenes = FileParseHelper.SplitByScene(text);
-                return
-                    scenes.Select(
-                        scene => new Scene { FilePath = path, Name = GetSceneName(scene), Text = scene });
-            });
-        }
-
         // Given scene text, returns the trimmed scene description
         public static string GetSceneDescription(string text)
         {
@@ -51,7 +38,7 @@ namespace Super_Text_Adventure_Maker.Helpers
         }
 
         // Given scene text, returns the trimmed scene name
-        private static string GetSceneName(string text)
+        public static string GetSceneName(string text)
         {
             var trimmedText = text.Trim();
             var endIndex = trimmedText.IndexOf(">", StringComparison.Ordinal);
