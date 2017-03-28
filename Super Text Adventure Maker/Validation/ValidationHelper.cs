@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Super_Text_Adventure_Maker.DTOs;
+using Super_Text_Adventure_Maker.Parsing;
 
-namespace Super_Text_Adventure_Maker.Helpers
+namespace Super_Text_Adventure_Maker.Validation
 {
     public static class ValidationHelper
     {

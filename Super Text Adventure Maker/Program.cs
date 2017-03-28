@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Super_Text_Adventure_Maker
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            
         }
     }
 }

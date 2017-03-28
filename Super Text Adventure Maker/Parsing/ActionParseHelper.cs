@@ -1,7 +1,7 @@
 ﻿using System;
 using Super_Text_Adventure_Maker.DTOs;
 
-namespace Super_Text_Adventure_Maker.Helpers
+namespace Super_Text_Adventure_Maker.Parsing
 {
     public static class ActionParseHelper
     {

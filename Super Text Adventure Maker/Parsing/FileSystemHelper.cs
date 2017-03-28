@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Super_Text_Adventure_Maker.DTOs;
+using Super_Text_Adventure_Maker.Validation;
 
-namespace Super_Text_Adventure_Maker.Helpers
+namespace Super_Text_Adventure_Maker.Parsing
 {
     public static class FileSystemHelper
     {
-        public static List<StamFile> GetStamFiles(List<string> paths)
+        public static List<StamFile> GetStamFiles()
         {
             var baseFolder = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             var files = SearchStamFiles(baseFolder);
