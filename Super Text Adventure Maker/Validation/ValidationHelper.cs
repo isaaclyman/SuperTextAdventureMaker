@@ -4,12 +4,30 @@ using System.Linq;
 using System.Text;
 using Super_Text_Adventure_Maker.DTOs;
 using Super_Text_Adventure_Maker.Parsing;
+using Super_Text_Adventure_Maker.UserInterface;
 
 namespace Super_Text_Adventure_Maker.Validation
 {
     public static class ValidationHelper
     {
-        public static List<Exception> ValidateFiles(List<StamFile> files)
+        public static void ValidateFiles(IEnumerable<StamFile> files)
+        {
+            var exceptions = GetExceptions(files);
+            if (exceptions.Count <= 0)
+            {
+                return;
+            }
+
+            foreach (var ex in exceptions)
+            {
+                UserInterfaceHelper.OutputError(ex);
+            }
+
+            UserInterfaceHelper.OutputError(new Exception(
+                "Your adventure could not be built because of the above errors. Please fix them and try again."));
+        }
+
+        private static List<Exception> GetExceptions(IEnumerable<StamFile> files)
         {
             var exceptions = new List<Exception>();
             var scenes = FileParseHelper.GetScenes(files).ToList();
