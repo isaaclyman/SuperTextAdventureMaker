@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Super_Text_Adventure_Maker.Configuration;
+using Super_Text_Adventure_Maker.UserInterface;
 
 namespace Super_Text_Adventure_Maker.Applications
 {
@@ -10,6 +7,8 @@ namespace Super_Text_Adventure_Maker.Applications
     {
         public static void Initialize()
         {
+            UserInterfaceHelper.OutputLine(Strings.Tools_Welcome);
+            UserInterfaceHelper.OutputLine();
         }
     }
 }

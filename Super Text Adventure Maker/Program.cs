@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Super_Text_Adventure_Maker.Applications;
 
 namespace Super_Text_Adventure_Maker
 {
@@ -13,6 +9,8 @@ namespace Super_Text_Adventure_Maker
             // Detect if a game package was passed to the app
             //  If yes, parse and run the game package
             //  If no, pass control to the Tools application
+
+            ToolsApplication.Initialize();
         }
     }
 }

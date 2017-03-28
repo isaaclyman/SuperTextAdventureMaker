@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Super_Text_Adventure_Maker.Configuration;
 using Super_Text_Adventure_Maker.DTOs;
 using Super_Text_Adventure_Maker.Parsing;
 using Super_Text_Adventure_Maker.UserInterface;
@@ -23,8 +24,7 @@ namespace Super_Text_Adventure_Maker.Validation
                 UserInterfaceHelper.OutputError(ex);
             }
 
-            UserInterfaceHelper.OutputError(new Exception(
-                "Your adventure could not be built because of the above errors. Please fix them and try again."));
+            UserInterfaceHelper.OutputError(new Exception(Strings.Validation_ErrorCannotBuild));
         }
 
         private static List<Exception> GetExceptions(IEnumerable<StamFile> files)
@@ -65,7 +65,7 @@ namespace Super_Text_Adventure_Maker.Validation
         {
             if (!string.IsNullOrWhiteSpace(action.Abbreviation) && string.IsNullOrWhiteSpace(action.Description))
             {
-                return ActionValidationError("The action does not have a description.", scene, action);
+                return ActionValidationError(Strings.Validation_ErrorNoActionDescription, scene, action);
             }
 
             return null;
@@ -75,7 +75,7 @@ namespace Super_Text_Adventure_Maker.Validation
         {
             if (string.IsNullOrWhiteSpace(action.Result) && string.IsNullOrWhiteSpace(action.NextScene))
             {
-                return ActionValidationError("The action does not have a result or a next scene.", scene, action);
+                return ActionValidationError(Strings.Validation_ErrorNoActionResultOrScene, scene, action);
             }
 
             return null;
@@ -91,13 +91,14 @@ namespace Super_Text_Adventure_Maker.Validation
             if (actionsWithNonexistentNextScenes.Count > 0)
             {
                 var errorMessage = new StringBuilder();
-                errorMessage.AppendLine("Some of the next scenes used in actions do not exist.");
-                errorMessage.AppendLine("Scenes not found:");
+                errorMessage.AppendLine(Strings.Validation_ErrorNonExistentScenes);
+                errorMessage.AppendLine(Strings.Validation_ScenesNotFound);
 
                 foreach (var action in actionsWithNonexistentNextScenes)
                 {
                     errorMessage.AppendLine(
-                        $"File '{action.Scene.FilePath}, scene '{action.Scene.Name}, action '{action.Abbreviation}'");
+                        $@"{Strings.General_File} '{action.Scene.FilePath}, {Strings.General_Scene} '{action.Scene.Name}, {Strings
+                            .General_Action} '{action.Abbreviation}'");
                     return GeneralValidationError(errorMessage.ToString());
                 }
             }
@@ -115,10 +116,7 @@ namespace Super_Text_Adventure_Maker.Validation
             var actionsWithNextScenes = actions.Where(action => !string.IsNullOrWhiteSpace(action.NextScene)).ToList();
             if (actionsWithNextScenes.Count < 1)
             {
-                return
-                    SceneValidationError(
-                        "Actions were found, but none of them has a next scene. If a scene has actions, at least one of them must have a next scene.",
-                        scene);
+                return SceneValidationError(Strings.Validation_ErrorNoNextScene, scene);
             }
 
             return null;
@@ -130,17 +128,11 @@ namespace Super_Text_Adventure_Maker.Validation
 
             if (defaultActions > 1)
             {
-                return
-                    SceneValidationError(
-                        "More than one blank action abbreviation was found. If a blank action abbreviation is used, it must be the only action.",
-                        scene);
+                return SceneValidationError(Strings.Validation_ErrorMoreThanOneDefaultAction, scene);
             }
             else if (defaultActions == 1 && actions.Count > 1)
             {
-                return
-                    SceneValidationError(
-                        "A blank action abbreviation was found among other actions. If a blank action abbreviation is used, it must be the only action.",
-                        scene);
+                return SceneValidationError(Strings.Validation_ErrorDefaultActionNotIsolated, scene);
             }
 
             return null;
@@ -161,9 +153,8 @@ namespace Super_Text_Adventure_Maker.Validation
             var errorMessage = new StringBuilder();
             if (duplicateAbbreviations.Count > 0)
             {
-                errorMessage.AppendLine(
-                    "Duplicate action abbreviations were found in the scene. Each action should have a unique abbreviation.");
-                errorMessage.AppendLine("Duplicate abbreviations:");
+                errorMessage.AppendLine(Strings.Validation_ErrorDuplicateAbbreviation);
+                errorMessage.AppendLine(Strings.Validation_DuplicateAbbreviations);
 
                 foreach (var group in duplicateAbbreviations)
                 {
@@ -174,9 +165,8 @@ namespace Super_Text_Adventure_Maker.Validation
 
             if (duplicateDescriptions.Count > 0)
             {
-                errorMessage.AppendLine(
-                    "Duplicate action descriptions were found in the scene. Each action should have a unique description.");
-                errorMessage.AppendLine("Duplicate descriptions:");
+                errorMessage.AppendLine(Strings.Validation_ErrorDuplicateActionDescriptions);
+                errorMessage.AppendLine(Strings.Validation_DuplicateActionDescriptions);
 
                 foreach (var group in duplicateDescriptions)
                 {
@@ -195,14 +185,15 @@ namespace Super_Text_Adventure_Maker.Validation
             if (duplicateScenes.Count > 0)
             {
                 var errorMessage = new StringBuilder();
-                errorMessage.AppendLine("More than one scene has the same name. Each scene should have a unique name.");
-                errorMessage.AppendLine("Duplicate scene names:");
+                errorMessage.AppendLine(Strings.Validation_ErrorDuplicateSceneNames);
+                errorMessage.AppendLine(Strings.Validation_DuplicateSceneNames);
 
                 foreach (var sceneGroup in duplicateScenes)
                 {
                     foreach (var scene in sceneGroup)
                     {
-                        errorMessage.AppendLine($"File '{scene.FilePath}', scene '{scene.Name}'");
+                        errorMessage.AppendLine(
+                            $"{Strings.General_File} '{scene.FilePath}', {Strings.General_Scene} '{scene.Name}'");
                     }
                 }
 
@@ -218,16 +209,13 @@ namespace Super_Text_Adventure_Maker.Validation
             
             if (entryScenes.Count == 0)
             {
-                const string errorMessage =
-                    "You haven't created any entry scenes. STAM doesn't know where to begin the adventure. An entry scene is a scene without a name.";
-                return GeneralValidationError(errorMessage);
+                return GeneralValidationError(Strings.Validation_ErrorNoEntryScene);
             }
             else if (entryScenes.Count > 1)
             {
                 var errorMessage = new StringBuilder();
-                errorMessage.AppendLine(
-                    "You have more than one entry scene. STAM doesn't know where to begin the adventure. An entry scene is a scene without a name.");
-                errorMessage.AppendLine("Entry scenes found in:");
+                errorMessage.AppendLine(Strings.Validation_ErrorMultipleEntryScenes);
+                errorMessage.AppendLine(Strings.Validation_EntryScenes);
 
                 // Include each file that has an entry scene in the error readout
                 foreach (var scene in entryScenes)
@@ -245,7 +233,7 @@ namespace Super_Text_Adventure_Maker.Validation
         {
             if (actions.All(action => action.NextScene == scene.Name))
             {
-                return SceneValidationError("The scene is an endless loop because all its actions use it as a next scene.", scene);
+                return SceneValidationError(Strings.Validation_ErrorInfiniteSceneLoop, scene);
             }
 
             return null;
@@ -257,7 +245,7 @@ namespace Super_Text_Adventure_Maker.Validation
 
             if (string.IsNullOrWhiteSpace(sceneDescription))
             {
-                return SceneValidationError("No scene description found.", scene);
+                return SceneValidationError(Strings.Validation_ErrorNoSceneDescription, scene);
             }
 
             return null;
@@ -265,19 +253,20 @@ namespace Super_Text_Adventure_Maker.Validation
 
         private static Exception GeneralValidationError(string message)
         {
-            return new Exception($"ERROR: {message}");
+            return new Exception($"{Strings.General_Error}: {message}");
         }
 
         private static Exception SceneValidationError(string message, Scene errorScene)
         {
-            return new Exception($"ERROR in '{errorScene.FilePath}', scene '{errorScene.Name}': {message}");
+            return new Exception($"{Strings.General_ErrorIn} '{errorScene.FilePath}', {Strings.General_Scene} '{errorScene.Name}': {message}");
         }
 
         private static Exception ActionValidationError(string message, Scene errorScene, SceneAction errorAction)
         {
             return
                 new Exception(
-                    $"ERROR in '{errorScene.FilePath}', scene '{errorScene.Name}, action '{errorAction.Abbreviation}': {message}");
+                    $@"{Strings.General_ErrorIn} '{errorScene.FilePath}', {Strings.General_Scene} '{errorScene.Name}, {Strings
+                        .General_Action} '{errorAction.Abbreviation}': {message}");
         }
     }
 }
