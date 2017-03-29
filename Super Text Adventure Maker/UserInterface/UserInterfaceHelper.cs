@@ -5,6 +5,11 @@ namespace Super_Text_Adventure_Maker.UserInterface
 {
     public static class UserInterfaceHelper
     {
+        public static void ClearWindow()
+        {
+            Console.Clear();
+        }
+
         public static string GetInput()
         {
             Console.Write(Strings.UserInterface_StamPrompt + @" ");

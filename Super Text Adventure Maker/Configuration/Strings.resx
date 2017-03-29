@@ -147,7 +147,6 @@
   </data>
   <data name="UserInterface_StamPrompt" xml:space="preserve">
     <value>stam&gt;</value>
-    <comment> </comment>
   </data>
   <data name="Validation_DuplicateAbbreviations" xml:space="preserve">
     <value>Duplicate abbreviations:</value>
@@ -205,5 +204,8 @@
   </data>
   <data name="Validation_ScenesNotFound" xml:space="preserve">
     <value>Scenes not found:</value>
+  </data>
+  <data name="General_ComingSoon" xml:space="preserve">
+    <value>This feature is coming soon.</value>
   </data>
 </root>

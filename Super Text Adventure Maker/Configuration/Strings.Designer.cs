@@ -70,6 +70,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This feature is coming soon..
+        /// </summary>
+        internal static string General_ComingSoon {
+            get {
+                return ResourceManager.GetString("General_ComingSoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ERROR.
         /// </summary>
         internal static string General_Error {
