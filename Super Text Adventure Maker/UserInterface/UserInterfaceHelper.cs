@@ -13,13 +13,18 @@ namespace Super_Text_Adventure_Maker.UserInterface
         public static string GetInput()
         {
             Console.Write(Strings.UserInterface_StamPrompt + @" ");
-            return Console.ReadLine();
+            var input = Console.ReadLine();
+            Console.WriteLine();
+            return input;
         }
 
         public static char GetNextKey()
         {
             Console.Write(Strings.UserInterface_StamPrompt + @" ");
-            return Console.ReadKey(false).KeyChar;
+            var key = Console.ReadKey(false).KeyChar;
+            Console.WriteLine();
+            Console.WriteLine();
+            return key;
         }
 
         public static void OutputError(Exception error)

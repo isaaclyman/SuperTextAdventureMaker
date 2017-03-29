@@ -125,6 +125,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to That option is not recognized. If you need help, type &quot;?&quot;..
+        /// </summary>
+        internal static string Tools_Unrecognized {
+            get {
+                return ResourceManager.GetString("Tools_Unrecognized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to SUPER TEXT ADVENTURE MAKER..
         /// </summary>
         internal static string Tools_Welcome {

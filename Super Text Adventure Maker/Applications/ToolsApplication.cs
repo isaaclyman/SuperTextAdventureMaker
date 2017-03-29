@@ -73,6 +73,9 @@ namespace Super_Text_Adventure_Maker.Applications
                 case 'k':
                     CreatePackage();
                     break;
+                default:
+                    UnrecognizedOption();
+                    break;
             }
         }
         
@@ -87,6 +90,14 @@ namespace Super_Text_Adventure_Maker.Applications
         private static void ValidateProject()
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            UserInterfaceHelper.Pause();
+            UserInterfaceHelper.ClearWindow();
+            ShowMenu();
+        }
+
+        private static void UnrecognizedOption()
+        {
+            UserInterfaceHelper.OutputLine(Strings.Tools_Unrecognized);
             UserInterfaceHelper.Pause();
             UserInterfaceHelper.ClearWindow();
             ShowMenu();
