@@ -15,25 +15,33 @@ namespace Super_Text_Adventure_Maker.Applications
         private static void CreatePackage()
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            UserInterfaceHelper.Pause();
             UserInterfaceHelper.ClearWindow();
+            ShowMenu();
         }
 
         private static void LoadSaved()
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            UserInterfaceHelper.Pause();
             UserInterfaceHelper.ClearWindow();
+            ShowMenu();
         }
 
         private static void PlayPackage()
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            UserInterfaceHelper.Pause();
             UserInterfaceHelper.ClearWindow();
+            ShowMenu();
         }
 
         private static void ShowHelp()
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            UserInterfaceHelper.Pause();
             UserInterfaceHelper.ClearWindow();
+            ShowMenu();
         }
 
         private static void ShowMenu()
@@ -71,13 +79,17 @@ namespace Super_Text_Adventure_Maker.Applications
         private static void TestProject()
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            UserInterfaceHelper.Pause();
             UserInterfaceHelper.ClearWindow();
+            ShowMenu();
         }
 
         private static void ValidateProject()
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            UserInterfaceHelper.Pause();
             UserInterfaceHelper.ClearWindow();
+            ShowMenu();
         }
     }
 }
