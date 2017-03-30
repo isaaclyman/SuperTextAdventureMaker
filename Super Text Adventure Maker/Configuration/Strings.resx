@@ -217,4 +217,7 @@
   <data name="Tools_Unrecognized" xml:space="preserve">
     <value>That option is not recognized. If you need help, type "?".</value>
   </data>
+  <data name="Validation_NoErrors" xml:space="preserve">
+    <value>No errors found.</value>
+  </data>
 </root>

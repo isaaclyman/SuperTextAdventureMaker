@@ -131,7 +131,6 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             var projects = FileSystemHelper.GetStamProjects();
             var files = ChooseProject(projects);
-            Console.WriteLine(string.Join(Environment.NewLine, files.Select(file => file.FilePath)));
             ValidationHelper.ValidateFiles(files);
             UserInterfaceHelper.Pause();
             UserInterfaceHelper.ClearWindow();

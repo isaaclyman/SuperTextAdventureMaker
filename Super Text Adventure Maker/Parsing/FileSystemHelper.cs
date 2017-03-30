@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Super_Text_Adventure_Maker.DTOs;
@@ -25,7 +24,7 @@ namespace Super_Text_Adventure_Maker.Parsing
 
             if (DirectoryHasProjectFolder(baseFolder))
             {
-                baseFolder = Path.GetFullPath(Path.Combine(baseFolder, $@"\{ProjectFolderName}"));
+                baseFolder = Path.GetFullPath(Path.Combine(baseFolder, $"{ProjectFolderName}"));
                 var projectPaths = Directory.GetDirectories(baseFolder);
                 var stamProjects = projectPaths.ToDictionary(path => new DirectoryInfo(path).Name,
                     path => SearchStamFiles(path).Select(FileParseHelper.GetStamFile).ToList());

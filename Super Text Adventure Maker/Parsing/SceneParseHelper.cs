@@ -12,11 +12,16 @@ namespace Super_Text_Adventure_Maker.Parsing
         public static IEnumerable<SceneAction> GetSceneActions(Scene scene)
         {
             var actionsStart = scene.Text.IndexOf("|", StringComparison.Ordinal);
+            if (actionsStart == -1)
+            {
+                return new List<SceneAction>();
+            }
+
             var actionsSection = scene.Text.Substring(actionsStart);
 
             // Split by a pipe that is followed by one or more non-whitespace, non-pipe characters and then a final pipe.
             // Lookahead means that only the first pipe is removed.
-            var actionBlocks = Regex.Split(actionsSection, @"\|(?=[^\s\|]*\|)");
+            var actionBlocks = Regex.Split(actionsSection, @"\|(?=[^\s\|]*\|)").Where(block => !string.IsNullOrWhiteSpace(block));
 
             return actionBlocks.Select(actionBlock => ActionParseHelper.GetSceneAction(scene, actionBlock)).ToList();
         }

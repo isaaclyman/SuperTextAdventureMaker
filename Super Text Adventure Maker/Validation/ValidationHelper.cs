@@ -16,6 +16,7 @@ namespace Super_Text_Adventure_Maker.Validation
             var exceptions = GetExceptions(files);
             if (exceptions.Count <= 0)
             {
+                UserInterfaceHelper.OutputLine(Strings.Validation_NoErrors);
                 return;
             }
 
@@ -43,6 +44,11 @@ namespace Super_Text_Adventure_Maker.Validation
 
                 // Scene-wide action validation methods
                 var actions = SceneParseHelper.GetSceneActions(scene).ToList();
+
+                if (actions.Count <= 0)
+                {
+                    continue;
+                }
 
                 exceptions.Add(AllNextScenesExist(scenes, actions));
                 exceptions.Add(AtLeastOneActionHasNextScene(scene, actions));
@@ -108,11 +114,6 @@ namespace Super_Text_Adventure_Maker.Validation
 
         private static Exception AtLeastOneActionHasNextScene(Scene scene, List<SceneAction> actions)
         {
-            if (actions.Count == 0)
-            {
-                return null;
-            }
-
             var actionsWithNextScenes = actions.Where(action => !string.IsNullOrWhiteSpace(action.NextScene)).ToList();
             if (actionsWithNextScenes.Count < 1)
             {

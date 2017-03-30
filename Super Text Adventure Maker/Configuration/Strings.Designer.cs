@@ -350,6 +350,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No errors found..
+        /// </summary>
+        internal static string Validation_NoErrors {
+            get {
+                return ResourceManager.GetString("Validation_NoErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scenes not found:.
         /// </summary>
         internal static string Validation_ScenesNotFound {
