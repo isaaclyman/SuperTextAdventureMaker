@@ -1,0 +1,7 @@
+scene2 > All the things happened.
+
+|a| An action.
+>> scene1
+
+|b| Another action.
+>> scene1

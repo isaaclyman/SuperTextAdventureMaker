@@ -1,0 +1,11 @@
+no-action-description > Bob is your friend.
+
+|h| Text him to say hello.
+>> scene1
+
+|i| Ignore his pleas for attention.
+>> scene1
+
+|attack|
+>> scene1
+

@@ -1,0 +1,7 @@
+two-defaults > You pass into the hallway toward the next room.
+
+|| Enter the next room
+>> scene1
+
+|| Enter the next room (again)
+>> scene1

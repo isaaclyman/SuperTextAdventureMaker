@@ -1,0 +1,11 @@
+no-action-result > You have an existential crisis.
+
+|a| Get a sports car.
+> It doesn't work.
+>> scene1
+
+|b| Go to Europe.
+
+|c| Get a promotion.
+> You have to work weekends now.
+>> scene1

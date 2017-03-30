@@ -1,0 +1,7 @@
+default-with-others > You are schrodinger's cat.
+
+|| Be alive.
+>> scene1
+
+|d| Be dead.
+>> scene1

@@ -1,0 +1,7 @@
+duplicate-abbreviation > You argue with a friend.
+
+|a| You are right.
+>> scene1
+
+|a| You are wrong.
+>> scene1

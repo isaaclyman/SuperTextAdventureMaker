@@ -1,0 +1,7 @@
+scene1 > A thing.
+
+|a| An action.
+>> scene2
+
+|b| Another action.
+>> scene2

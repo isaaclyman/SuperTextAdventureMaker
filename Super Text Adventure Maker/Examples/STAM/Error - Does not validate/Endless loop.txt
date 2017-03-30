@@ -1,0 +1,9 @@
+endless-loop > You desperately need to get into your house.
+
+|a| Try the first key.
+> It doesn't work.
+>> endless-loop
+
+|b| Try the second key.
+> It doesn't work.
+>> endless-loop
