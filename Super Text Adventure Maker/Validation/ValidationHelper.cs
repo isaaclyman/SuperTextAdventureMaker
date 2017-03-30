@@ -11,13 +11,14 @@ namespace Super_Text_Adventure_Maker.Validation
 {
     public static class ValidationHelper
     {
-        public static void ValidateFiles(IEnumerable<StamFile> files)
+        // Returns a boolean indicating whether the files passed validation (true) or had errors (false).
+        public static bool ValidateFiles(IEnumerable<StamFile> files)
         {
             var exceptions = GetExceptions(files);
             if (exceptions.Count <= 0)
             {
                 UserInterfaceHelper.OutputLine(Strings.Validation_NoErrors);
-                return;
+                return true;
             }
 
             foreach (var ex in exceptions)
@@ -27,6 +28,8 @@ namespace Super_Text_Adventure_Maker.Validation
             }
 
             UserInterfaceHelper.OutputError(new Exception(Strings.Validation_ErrorCannotBuild));
+            UserInterfaceHelper.Pause();
+            return false;
         }
 
         private static List<Exception> GetExceptions(IEnumerable<StamFile> files)

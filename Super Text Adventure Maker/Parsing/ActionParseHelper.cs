@@ -47,7 +47,7 @@ namespace Super_Text_Adventure_Maker.Parsing
 
                 result = resultTextEnd == -1
                     ? action.Substring(resultTextStart).Trim()
-                    : action.Substring(resultTextStart, resultTextEnd - resultTextStart);
+                    : action.Substring(resultTextStart, resultTextEnd - resultTextStart).Trim();
             }
 
             return new SceneAction

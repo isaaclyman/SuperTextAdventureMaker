@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Super_Text_Adventure_Maker.Configuration;
 using Super_Text_Adventure_Maker.DTOs;
@@ -15,7 +14,7 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             UserInterfaceHelper.OutputLine(Strings.Tools_Welcome);
             UserInterfaceHelper.OutputLine();
-            ShowMenu();
+            ShowMenu(false);
         }
 
         private static List<StamFile> ChooseProject(Dictionary<string, List<StamFile>> projects)
@@ -54,7 +53,6 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
             UserInterfaceHelper.Pause();
-            UserInterfaceHelper.ClearWindow();
             ShowMenu();
         }
 
@@ -62,7 +60,6 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
             UserInterfaceHelper.Pause();
-            UserInterfaceHelper.ClearWindow();
             ShowMenu();
         }
 
@@ -70,7 +67,6 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
             UserInterfaceHelper.Pause();
-            UserInterfaceHelper.ClearWindow();
             ShowMenu();
         }
 
@@ -78,12 +74,16 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
             UserInterfaceHelper.Pause();
-            UserInterfaceHelper.ClearWindow();
             ShowMenu();
         }
 
-        private static void ShowMenu()
+        private static void ShowMenu(bool clearWindow = true)
         {
+            if (clearWindow)
+            {
+                UserInterfaceHelper.ClearWindow();
+            }
+            
             UserInterfaceHelper.OutputLine(Strings.Tools_WhatToDo);
             UserInterfaceHelper.OutputLine(Strings.Tools_Menu);
             var selection = UserInterfaceHelper.GetNextKey();
@@ -121,9 +121,18 @@ namespace Super_Text_Adventure_Maker.Applications
         
         private static void TestProject()
         {
-            UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
-            UserInterfaceHelper.Pause();
-            UserInterfaceHelper.ClearWindow();
+            var projects = FileSystemHelper.GetStamProjects();
+            var files = ChooseProject(projects);
+            var isValid = ValidationHelper.ValidateFiles(files);
+
+            if (!isValid)
+            {
+                ShowMenu();
+                return;
+            }
+
+            var scenes = FileParseHelper.GetScenes(files).ToList();
+            GameApplication.Init(scenes);
             ShowMenu();
         }
 
@@ -132,8 +141,6 @@ namespace Super_Text_Adventure_Maker.Applications
             var projects = FileSystemHelper.GetStamProjects();
             var files = ChooseProject(projects);
             ValidationHelper.ValidateFiles(files);
-            UserInterfaceHelper.Pause();
-            UserInterfaceHelper.ClearWindow();
             ShowMenu();
         }
 
@@ -141,7 +148,6 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             UserInterfaceHelper.OutputLine(Strings.Tools_Unrecognized);
             UserInterfaceHelper.Pause();
-            UserInterfaceHelper.ClearWindow();
             ShowMenu();
         }
     }

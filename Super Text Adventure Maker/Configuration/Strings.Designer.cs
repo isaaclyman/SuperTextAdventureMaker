@@ -61,6 +61,24 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to That doesn&apos;t work..
+        /// </summary>
+        internal static string Game_InvalidAction {
+            get {
+                return ResourceManager.GetString("Game_InvalidAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What do you do?.
+        /// </summary>
+        internal static string Game_WhatDoYouDo {
+            get {
+                return ResourceManager.GetString("Game_WhatDoYouDo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to action.
         /// </summary>
         internal static string General_Action {

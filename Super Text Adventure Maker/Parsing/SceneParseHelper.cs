@@ -30,7 +30,7 @@ namespace Super_Text_Adventure_Maker.Parsing
         public static string GetSceneDescription(string text)
         {
             var trimmedText = text.Trim();
-            var startIndex = trimmedText.IndexOf(">", StringComparison.Ordinal);
+            var startIndex = trimmedText.IndexOf(">", StringComparison.Ordinal) + 1;
             var endIndex = trimmedText.IndexOf("|", StringComparison.Ordinal);
 
             if (endIndex == -1)

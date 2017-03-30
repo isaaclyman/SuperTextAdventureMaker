@@ -16,7 +16,14 @@ namespace Super_Text_Adventure_Maker.Parsing
                 var scenes = SplitByScene(file.Content);
                 return
                     scenes.Select(
-                        scene => new Scene { FilePath = file.FilePath, Name = SceneParseHelper.GetSceneName(scene), Text = scene });
+                        scene =>
+                            new Scene
+                            {
+                                Description = SceneParseHelper.GetSceneDescription(scene),
+                                FilePath = file.FilePath,
+                                Name = SceneParseHelper.GetSceneName(scene),
+                                Text = scene
+                            });
             });
         }
 
