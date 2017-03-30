@@ -41,7 +41,7 @@ namespace Super_Text_Adventure_Maker.Applications
 
             if (choiceIsInt && choice > 0 && choice <= projectNames.Length)
             {
-                return projects[projectNames[choice]];
+                return projects[projectNames[choice - 1]];
             }
             
             // If an invalid number was chosen, show an error and try again.

@@ -23,6 +23,7 @@ namespace Super_Text_Adventure_Maker.Validation
             foreach (var ex in exceptions)
             {
                 UserInterfaceHelper.OutputError(ex);
+                UserInterfaceHelper.OutputLine();
             }
 
             UserInterfaceHelper.OutputError(new Exception(Strings.Validation_ErrorCannotBuild));
@@ -53,7 +54,8 @@ namespace Super_Text_Adventure_Maker.Validation
                 exceptions.Add(AllNextScenesExist(scenes, actions));
                 exceptions.Add(AtLeastOneActionHasNextScene(scene, actions));
                 exceptions.Add(DefaultActionIsValid(scene, actions));
-                exceptions.Add(NoDuplicateActionsExistInScene(scene, actions));
+                exceptions.Add(NoDuplicateActionAbbreviations(scene, actions));
+                exceptions.Add(NoDuplicateActionDescriptions(scene, actions));
                 exceptions.Add(SceneIsNotEndlessLoop(scene, actions));
 
                 // Action-specific validation methods
@@ -92,24 +94,28 @@ namespace Super_Text_Adventure_Maker.Validation
             var sceneNames = scenes.Select(scene => scene.Name);
 
             var actionsWithNonexistentNextScenes =
-                sceneActions.Where(sceneAction => !sceneNames.Contains(sceneAction.NextScene)).ToList();
+                sceneActions.Where(
+                        sceneAction =>
+                            !string.IsNullOrWhiteSpace(sceneAction.NextScene) && !sceneNames.Contains(sceneAction.NextScene))
+                    .ToList();
 
-            if (actionsWithNonexistentNextScenes.Count > 0)
+            if (actionsWithNonexistentNextScenes.Count <= 0)
             {
-                var errorMessage = new StringBuilder();
-                errorMessage.AppendLine(Strings.Validation_ErrorNonExistentScenes);
-                errorMessage.AppendLine(Strings.Validation_ScenesNotFound);
-
-                foreach (var action in actionsWithNonexistentNextScenes)
-                {
-                    errorMessage.AppendLine(
-                        $@"{Strings.General_File} '{action.Scene.FilePath}, {Strings.General_Scene} '{action.Scene.Name}, {Strings
-                            .General_Action} '{action.Abbreviation}'");
-                    return GeneralValidationError(errorMessage.ToString());
-                }
+                return null;
             }
 
-            return null;
+            var errorMessage = new StringBuilder();
+            errorMessage.AppendLine(Strings.Validation_ErrorNonExistentScenes);
+            errorMessage.AppendLine(Strings.Validation_ScenesNotFound);
+
+            foreach (var action in actionsWithNonexistentNextScenes)
+            {
+                errorMessage.AppendLine($"'{action.Scene.FilePath}'");
+                errorMessage.AppendLine($"{Strings.General_Scene} '{action.Scene.Name}'");
+                errorMessage.AppendLine($"{Strings.General_Action} '{action.Abbreviation}'");
+            }
+
+            return GeneralValidationError(errorMessage.ToString());
         }
 
         private static Exception AtLeastOneActionHasNextScene(Scene scene, List<SceneAction> actions)
@@ -139,14 +145,15 @@ namespace Super_Text_Adventure_Maker.Validation
             return null;
         }
 
-        private static Exception NoDuplicateActionsExistInScene(Scene scene, List<SceneAction> actions)
+        private static Exception NoDuplicateActionAbbreviations(Scene scene, List<SceneAction> actions)
         {
             var duplicateAbbreviations =
-                actions.GroupBy(action => action.Abbreviation).Where(group => group.Count() > 1).ToList();
-            var duplicateDescriptions =
-                actions.GroupBy(action => action.Description).Where(group => group.Count() > 1).ToList();
+                actions.Where(action => !string.IsNullOrWhiteSpace(action.Abbreviation))
+                    .GroupBy(action => action.Abbreviation)
+                    .Where(group => group.Count() > 1)
+                    .ToList();
 
-            if (duplicateAbbreviations.Count <= 0 && duplicateDescriptions.Count <= 0)
+            if (duplicateAbbreviations.Count <= 0)
             {
                 return null;
             }
@@ -156,24 +163,34 @@ namespace Super_Text_Adventure_Maker.Validation
             {
                 errorMessage.AppendLine(Strings.Validation_ErrorDuplicateAbbreviation);
                 errorMessage.AppendLine(Strings.Validation_DuplicateAbbreviations);
-
-                foreach (var group in duplicateAbbreviations)
-                {
-                    var action = group.First();
-                    errorMessage.AppendLine(action.Abbreviation);
-                }
+                errorMessage.Append(string.Join(Environment.NewLine,
+                    duplicateAbbreviations.Select(group => group.First().Abbreviation)));
             }
 
+            return SceneValidationError(errorMessage.ToString(), scene);
+        }
+
+        private static Exception NoDuplicateActionDescriptions(Scene scene, List<SceneAction> actions)
+        {
+
+            var duplicateDescriptions =
+                actions.Where(action => !string.IsNullOrWhiteSpace(action.Description))
+                    .GroupBy(action => action.Description)
+                    .Where(group => group.Count() > 1)
+                    .ToList();
+
+            if (duplicateDescriptions.Count <= 0)
+            {
+                return null;
+            }
+
+            var errorMessage = new StringBuilder();
             if (duplicateDescriptions.Count > 0)
             {
                 errorMessage.AppendLine(Strings.Validation_ErrorDuplicateActionDescriptions);
                 errorMessage.AppendLine(Strings.Validation_DuplicateActionDescriptions);
-
-                foreach (var group in duplicateDescriptions)
-                {
-                    var action = group.First();
-                    errorMessage.AppendLine(action.Description);
-                }
+                errorMessage.Append(string.Join(Environment.NewLine,
+                    duplicateDescriptions.Select(group => group.First().Description)));
             }
 
             return SceneValidationError(errorMessage.ToString(), scene);
@@ -193,8 +210,8 @@ namespace Super_Text_Adventure_Maker.Validation
                 {
                     foreach (var scene in sceneGroup)
                     {
-                        errorMessage.AppendLine(
-                            $"{Strings.General_File} '{scene.FilePath}', {Strings.General_Scene} '{scene.Name}'");
+                        errorMessage.AppendLine($"'{scene.FilePath}'");
+                        errorMessage.AppendLine($"{Strings.General_Scene} '{scene.Name}'");
                     }
                 }
 
@@ -259,15 +276,23 @@ namespace Super_Text_Adventure_Maker.Validation
 
         private static Exception SceneValidationError(string message, Scene errorScene)
         {
-            return new Exception($"{Strings.General_ErrorIn} '{errorScene.FilePath}', {Strings.General_Scene} '{errorScene.Name}': {message}");
+            var errorMessage = new StringBuilder();
+            errorMessage.AppendLine($"{Strings.General_Error}: {message}");
+            errorMessage.AppendLine($"'{errorScene.FilePath}'");
+            errorMessage.AppendLine($"{Strings.General_Scene} '{errorScene.Name}'");
+
+            return new Exception(errorMessage.ToString());
         }
 
         private static Exception ActionValidationError(string message, Scene errorScene, SceneAction errorAction)
         {
-            return
-                new Exception(
-                    $@"{Strings.General_ErrorIn} '{errorScene.FilePath}', {Strings.General_Scene} '{errorScene.Name}, {Strings
-                        .General_Action} '{errorAction.Abbreviation}': {message}");
+            var errorMessage = new StringBuilder();
+            errorMessage.AppendLine($"{Strings.General_Error}: {message}");
+            errorMessage.AppendLine($"'{errorScene.FilePath}'");
+            errorMessage.AppendLine($"{Strings.General_Scene} '{errorScene.Name}'");
+            errorMessage.AppendLine($"{Strings.General_Action} '{errorAction.Abbreviation}'");
+
+            return new Exception(errorMessage.ToString());
         }
     }
 }

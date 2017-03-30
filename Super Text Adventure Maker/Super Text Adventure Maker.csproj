@@ -74,6 +74,21 @@
     <Content Include="Examples\STAM\Basic - John%27s Vacation\Entry.txt" />
     <Content Include="Examples\STAM\Basic - John%27s Vacation\Montreal.txt" />
     <Content Include="Examples\STAM\Basic - John%27s Vacation\Nebraska.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Default with other actions.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Duplicate action abbreviation.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Duplicate action description.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Duplicate entry.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Endless loop.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Entry.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Next scene doesnt exist.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\No action description.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\No action result.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\No next scene action.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\No scene description.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Scene1 duplicated.txt" />
+    <Content Include="Examples\STAM\Error - Does Not Validate\Two default actions.txt" />
+    <Content Include="Examples\STAM\Error - No entry scene\Scene1.txt" />
+    <Content Include="Examples\STAM\Error - No entry scene\Scene2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -88,15 +88,6 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ERROR in.
-        /// </summary>
-        internal static string General_ErrorIn {
-            get {
-                return ResourceManager.GetString("General_ErrorIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to file.
         /// </summary>
         internal static string General_File {
