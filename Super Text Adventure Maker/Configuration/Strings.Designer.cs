@@ -115,7 +115,25 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (?) for help, (p) to play a game package, (l) to load a saved game,
+        ///   Looks up a localized string similar to Which project would you like to use?.
+        /// </summary>
+        internal static string Tools_ChooseProject {
+            get {
+                return ResourceManager.GetString("Tools_ChooseProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That&apos;s not a valid selection. Please try again..
+        /// </summary>
+        internal static string Tools_InvalidEntry {
+            get {
+                return ResourceManager.GetString("Tools_InvalidEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (?) for help, (q) to quit, (p) to play a game package, (l) to load a saved game,
         ///(v) to validate a project, (b) to build/test a project, (k) to package up a finished project .
         /// </summary>
         internal static string Tools_Menu {
