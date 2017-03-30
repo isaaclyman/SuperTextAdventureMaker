@@ -55,7 +55,7 @@
     <Compile Include="DTOs\StamFile.cs" />
     <Compile Include="Parsing\ActionParseHelper.cs" />
     <Compile Include="Parsing\FileParseHelper.cs" />
-    <Compile Include="Parsing\FileSystemHelper.cs" />
+    <Compile Include="FileSystem\FileSystemHelper.cs" />
     <Compile Include="Parsing\SceneParseHelper.cs" />
     <Compile Include="UserInterface\UserInterfaceHelper.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />

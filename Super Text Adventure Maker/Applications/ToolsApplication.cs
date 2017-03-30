@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Super_Text_Adventure_Maker.Configuration;
 using Super_Text_Adventure_Maker.DTOs;
@@ -51,8 +52,25 @@ namespace Super_Text_Adventure_Maker.Applications
 
         private static void CreatePackage()
         {
-            UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            var projects = FileSystemHelper.GetStamProjects();
+            var files = ChooseProject(projects);
+            var isValid = ValidationHelper.ValidateFiles(files);
+
+            if (!isValid)
+            {
+                ShowMenu();
+                return;
+            }
+
+            var scenes = FileParseHelper.GetScenes(files).ToList();
+
+            UserInterfaceHelper.OutputLine(Strings.Tools_EnterPackageName);
+            var filename = UserInterfaceHelper.GetInput().Trim().TrimStart('/', '\\');
+            var path = Path.Combine(FileSystemHelper.GetCurrentPath(), filename);
+            FileSystemHelper.WritePackage(scenes, path);
+            UserInterfaceHelper.OutputLine(Strings.General_Done);
             UserInterfaceHelper.Pause();
+
             ShowMenu();
         }
 

@@ -97,6 +97,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Done..
+        /// </summary>
+        internal static string General_Done {
+            get {
+                return ResourceManager.GetString("General_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ERROR.
         /// </summary>
         internal static string General_Error {
@@ -129,6 +138,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         internal static string Tools_ChooseProject {
             get {
                 return ResourceManager.GetString("Tools_ChooseProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What would you like to call the game package? (Filename only, no extension.).
+        /// </summary>
+        internal static string Tools_EnterPackageName {
+            get {
+                return ResourceManager.GetString("Tools_EnterPackageName", resourceCulture);
             }
         }
         
