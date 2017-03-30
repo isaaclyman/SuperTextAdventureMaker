@@ -1,0 +1,9 @@
+﻿> You are going on vacation. You can go to Montreal or to Nebraska.
+
+|m| Go to Montreal.
+> Your plane to Quebec leaves tomorrow.
+>> montreal
+
+|n| Go to Nebraska.
+> Road trip! You pack a few sandwiches and head out.
+>> nebraska
