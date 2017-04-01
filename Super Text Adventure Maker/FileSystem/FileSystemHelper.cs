@@ -9,6 +9,7 @@ namespace Super_Text_Adventure_Maker.Parsing
 {
     public static class FileSystemHelper
     {
+        private const string PackageExtension = ".stam.game";
         private const string ProjectFolderName = "STAM";
 
         public static string GetCurrentPath()
@@ -54,11 +55,6 @@ namespace Super_Text_Adventure_Maker.Parsing
             };
         }
 
-        private static bool DirectoryHasProjectFolder(string pathName)
-        {
-            return Directory.GetDirectories(pathName, ProjectFolderName).Length > 0;
-        }
-
         public static List<Scene> ReadPackage(string path)
         {
             var encodedFile = File.ReadAllText(path);
@@ -71,13 +67,10 @@ namespace Super_Text_Adventure_Maker.Parsing
                     .ToList();
         }
 
-        private static IEnumerable<string> SearchStamFiles(string folder)
+        public static IEnumerable<string> SearchPackages(string basePath)
         {
-            var files =
-                Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories)
-                    .Where(file => file.EndsWith(".txt") || file.EndsWith(".text") || file.EndsWith(".stam"));
-
-            return files.ToList();
+            var files = Directory.GetFiles(basePath, $"*{PackageExtension}", SearchOption.AllDirectories);
+            return files;
         }
 
         public static void WritePackage(List<Scene> scenes, string path)
@@ -86,7 +79,21 @@ namespace Super_Text_Adventure_Maker.Parsing
             var decoded = string.Join(sceneSeparator, scenes.Select(scene => scene.Text));
             var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(decoded));
 
-            File.WriteAllText($"{path}.stam.game", encoded);
+            File.WriteAllText($"{path}{PackageExtension}", encoded);
+        }
+
+        private static bool DirectoryHasProjectFolder(string pathName)
+        {
+            return Directory.GetDirectories(pathName, ProjectFolderName).Length > 0;
+        }
+
+        private static IEnumerable<string> SearchStamFiles(string folder)
+        {
+            var files =
+                Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories)
+                    .Where(file => file.EndsWith(".txt") || file.EndsWith(".text") || file.EndsWith(".stam"));
+
+            return files.ToList();
         }
     }
 }

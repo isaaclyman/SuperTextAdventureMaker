@@ -133,6 +133,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Which package would you like to load?.
+        /// </summary>
+        internal static string Tools_ChoosePackage {
+            get {
+                return ResourceManager.GetString("Tools_ChoosePackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Which project would you like to use?.
         /// </summary>
         internal static string Tools_ChooseProject {
@@ -156,6 +165,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         internal static string Tools_InvalidEntry {
             get {
                 return ResourceManager.GetString("Tools_InvalidEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only one package was found: &apos;{0}&apos;. Loading it now....
+        /// </summary>
+        internal static string Tools_LoadingOnlyPackage {
+            get {
+                return ResourceManager.GetString("Tools_LoadingOnlyPackage", resourceCulture);
             }
         }
         

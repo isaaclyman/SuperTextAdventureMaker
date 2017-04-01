@@ -18,6 +18,7 @@ namespace Super_Text_Adventure_Maker.Validation
             if (exceptions.Count <= 0)
             {
                 UserInterfaceHelper.OutputLine(Strings.Validation_NoErrors);
+                UserInterfaceHelper.Pause();
                 return true;
             }
 

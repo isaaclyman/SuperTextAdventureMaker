@@ -229,4 +229,10 @@
   <data name="Validation_NoErrors" xml:space="preserve">
     <value>No errors found.</value>
   </data>
+  <data name="Tools_ChoosePackage" xml:space="preserve">
+    <value>Which package would you like to load?</value>
+  </data>
+  <data name="Tools_LoadingOnlyPackage" xml:space="preserve">
+    <value>Only one package was found: '{0}'. Loading it now...</value>
+  </data>
 </root>

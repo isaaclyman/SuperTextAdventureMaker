@@ -18,6 +18,39 @@ namespace Super_Text_Adventure_Maker.Applications
             ShowMenu(false);
         }
 
+        private static string ChoosePackage(List<string> packages)
+        {
+            if (packages.Count == 1)
+            {
+                UserInterfaceHelper.OutputLine(string.Format(Strings.Tools_LoadingOnlyPackage, packages.First()));
+                UserInterfaceHelper.Pause();
+                return packages.First();
+            }
+
+            UserInterfaceHelper.OutputLine();
+            UserInterfaceHelper.OutputLine(Strings.Tools_ChoosePackage);
+            UserInterfaceHelper.OutputLine();
+
+            for (var index = 0; index < packages.Count; index++)
+            {
+                UserInterfaceHelper.OutputLine($"({index + 1}) {packages[index]}");
+            }
+
+            UserInterfaceHelper.OutputLine();
+            int choice;
+            var choiceIsInt = int.TryParse(UserInterfaceHelper.GetInput(), out choice);
+
+            if (choiceIsInt && choice > 0 && choice <= packages.Count)
+            {
+                return packages[choice];
+            }
+
+            // If an invalid number was chosen, show an error and try again.
+            UserInterfaceHelper.OutputLine(Strings.Tools_InvalidEntry);
+            UserInterfaceHelper.Pause();
+            return ChoosePackage(packages);
+        }
+
         private static List<StamFile> ChooseProject(Dictionary<string, List<StamFile>> projects)
         {
             var projectNames = projects.Keys.ToArray();
@@ -83,8 +116,11 @@ namespace Super_Text_Adventure_Maker.Applications
 
         private static void PlayPackage()
         {
-            UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
-            UserInterfaceHelper.Pause();
+            var packages = FileSystemHelper.SearchPackages(FileSystemHelper.GetCurrentPath()).ToList();
+            var path = ChoosePackage(packages);
+            var scenes = FileSystemHelper.ReadPackage(path);
+
+            GameApplication.Init(scenes);
             ShowMenu();
         }
 
