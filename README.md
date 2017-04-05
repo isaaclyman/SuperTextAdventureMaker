@@ -131,7 +131,7 @@ spoiling the ending. The file extension will be ".stam.game".
 ### Roadmap for the future
 Some nice-to-haves:
 - Allow the player to configure the `What do you do?` text on each scene.
-- Variable storage, manipulation and response (so actions can have different results based on variable values, e.g. 
+- Variable storage, manipulation and response (so actions can have different results (or be unavailable) based on variable values, e.g. 
 `You don't have enough mana!`).
 - Dice roll to determine if an action succeeds or fails.
 - Config file that determines things like the symbols used, default `What do you do?` text, and
