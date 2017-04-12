@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Super_Text_Adventure_Maker.DTOs;
+using Super_Text_Adventure_Maker.Parsing;
 
-namespace Super_Text_Adventure_Maker.Parsing
+namespace Super_Text_Adventure_Maker.FileSystem
 {
     public static class FileSystemHelper
     {
@@ -25,7 +26,7 @@ namespace Super_Text_Adventure_Maker.Parsing
             return baseFolder;
         }
 
-        // Recursively finds files with STAM-compatible extensions as a Dictionary<projectName, List<StamFile>>
+        // Recursively finds projects with STAM-compatible extensions as a Dictionary<projectName, List<StamFile>>
         // If there is a STAM folder, each folder therein will be a project
         // Otherwise, all files are considered a part of a project with name string.Empty
         public static Dictionary<string, List<StamFile>> GetStamProjects()
