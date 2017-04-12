@@ -235,10 +235,10 @@
   <data name="Tools_LoadingOnlyPackage" xml:space="preserve">
     <value>Only one package was found: '{0}'. Loading it now...</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Tools_NoPackageFound" xml:space="preserve">
     <value>No game packages found.</value>
+  </data>
+  <data name="Tools_NoProjectFound" xml:space="preserve">
+    <value>No projects were found.</value>
   </data>
 </root>

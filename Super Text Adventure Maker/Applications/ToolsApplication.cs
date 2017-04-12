@@ -60,6 +60,13 @@ namespace Super_Text_Adventure_Maker.Applications
 
         private static List<StamFile> ChooseProject(Dictionary<string, List<StamFile>> projects)
         {
+            if (projects.Count < 1)
+            {
+                UserInterfaceHelper.OutputLine(Strings.Tools_NoProjectFound);
+                UserInterfaceHelper.Pause();
+                return null;
+            }
+
             var projectNames = projects.Keys.ToArray();
             if (projectNames.Length == 1)
             {
@@ -94,6 +101,12 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             var projects = FileSystemHelper.GetStamProjects();
             var files = ChooseProject(projects);
+            if (files == null)
+            {
+                ShowMenu();
+                return;
+            }
+
             var isValid = ValidationHelper.ValidateFiles(files);
 
             if (!isValid)
@@ -190,6 +203,12 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             var projects = FileSystemHelper.GetStamProjects();
             var files = ChooseProject(projects);
+            if (files == null)
+            {
+                ShowMenu();
+                return;
+            }
+
             var isValid = ValidationHelper.ValidateFiles(files);
 
             if (!isValid)
@@ -207,6 +226,12 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             var projects = FileSystemHelper.GetStamProjects();
             var files = ChooseProject(projects);
+            if (files == null)
+            {
+                ShowMenu();
+                return;
+            }
+
             ValidationHelper.ValidateFiles(files);
             ShowMenu();
         }
