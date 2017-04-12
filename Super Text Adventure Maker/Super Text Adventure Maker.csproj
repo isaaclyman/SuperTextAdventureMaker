@@ -50,6 +50,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="DTOs\GameEnvironment.cs" />
     <Compile Include="DTOs\SceneAction.cs" />
     <Compile Include="DTOs\Scene.cs" />
     <Compile Include="DTOs\StamFile.cs" />
@@ -69,6 +70,7 @@
     <EmbeddedResource Include="Configuration\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

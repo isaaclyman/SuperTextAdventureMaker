@@ -235,10 +235,35 @@
   <data name="Tools_LoadingOnlyPackage" xml:space="preserve">
     <value>Only one package was found: '{0}'. Loading it now...</value>
   </data>
+  <data name="Help_Menu" xml:space="preserve">
+    <value>(</value>
+  </data>
+  <data name="Help_Welcome" xml:space="preserve">
+    <value>HELP</value>
+  </data>
+  <data name="Help_WhatToDo" xml:space="preserve">
+    <value>What do you need help with?</value>
+  </data>
   <data name="Tools_NoPackageFound" xml:space="preserve">
     <value>No game packages found.</value>
   </data>
   <data name="Tools_NoProjectFound" xml:space="preserve">
     <value>No projects were found.</value>
+  </data>
+  <data name="Game_InvalidOption" xml:space="preserve">
+    <value>That's not a valid option.</value>
+  </data>
+  <data name="Game_Options" xml:space="preserve">
+    <value>(:s) to save the game, (:q) to quit, (:r) to reset the game and start over.</value>
+  </data>
+  <data name="Game_Title" xml:space="preserve">
+    <value>STAM</value>
+  </data>
+  <data name="Tools_OpeningWebHelp" xml:space="preserve">
+    <value>Opening the project documentation in your web browser.
+If this doesn't work, visit https://github.com/isaaclyman/SuperTextAdventureMaker/blob/master/README.md</value>
+  </data>
+  <data name="Tools_Title" xml:space="preserve">
+    <value>STAM - Tools</value>
   </data>
 </root>

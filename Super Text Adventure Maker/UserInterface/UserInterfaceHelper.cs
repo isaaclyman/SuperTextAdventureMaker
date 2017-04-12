@@ -52,5 +52,10 @@ namespace Super_Text_Adventure_Maker.UserInterface
                 // Block the thread until the Enter key is pressed.
             }
         }
+
+        public static void SetTitle(string title)
+        {
+            Console.Title = title;
+        }
     }
 }

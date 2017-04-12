@@ -12,22 +12,34 @@ namespace Super_Text_Adventure_Maker.Applications
     {
         public static void Init(List<Scene> scenes)
         {
-            var entryScene = GetEntryScene(scenes);
-            PlayScene(scenes, entryScene);
+            UserInterfaceHelper.SetTitle(Strings.Game_Title);
+
+            var env = new GameEnvironment
+            {
+                AllScenes = scenes,
+                CurrentScene = GetEntryScene(scenes)
+            };
+            PlayScene(env);
         }
 
-        private static void ChooseAction(List<Scene> allScenes, Scene currentScene, Dictionary<string, SceneAction> actionDict)
+        private static void ChooseAction(GameEnvironment env, Dictionary<string, SceneAction> actionDict)
         {
             SceneAction chosenAction;
 
             var actionChoice = UserInterfaceHelper.GetInput();
+            if (actionChoice.StartsWith(":"))
+            {
+                RunUtility(env, actionChoice);
+                return;
+            }
+
             var actionExists = actionDict.TryGetValue(actionChoice, out chosenAction);
 
             if (!actionExists)
             {
                 UserInterfaceHelper.OutputLine(Strings.Game_InvalidAction);
                 UserInterfaceHelper.Pause();
-                PlayScene(allScenes, currentScene);
+                PlayScene(env);
                 return;
             }
 
@@ -35,11 +47,11 @@ namespace Super_Text_Adventure_Maker.Applications
 
             if (!string.IsNullOrWhiteSpace(chosenAction.NextScene))
             {
-                GoToScene(allScenes, chosenAction.NextScene);
+                GoToScene(env, chosenAction.NextScene);
                 return;
             }
 
-            PlayScene(allScenes, currentScene);
+            PlayScene(env);
         }
 
         private static void GameOver()
@@ -52,7 +64,7 @@ namespace Super_Text_Adventure_Maker.Applications
             return scenes.First(scene => string.IsNullOrWhiteSpace(scene.Name));
         }
 
-        private static void GoToScene(List<Scene> allScenes, string sceneName)
+        private static void GoToScene(GameEnvironment env, string sceneName)
         {
             if (string.IsNullOrWhiteSpace(sceneName))
             {
@@ -60,22 +72,23 @@ namespace Super_Text_Adventure_Maker.Applications
             }
 
             var nextScene =
-                allScenes.First(scene => string.Equals(scene.Name, sceneName, StringComparison.OrdinalIgnoreCase));
-            PlayScene(allScenes, nextScene);
+                env.AllScenes.First(scene => string.Equals(scene.Name, sceneName, StringComparison.OrdinalIgnoreCase));
+            env.CurrentScene = nextScene;
+            PlayScene(env);
         }
 
-        private static void PlayScene(List<Scene> allScenes, Scene scene)
+        private static void PlayScene(GameEnvironment env)
         {
             UserInterfaceHelper.ClearWindow();
 
-            UserInterfaceHelper.OutputLine(scene.Description);
+            UserInterfaceHelper.OutputLine(env.CurrentScene.Description);
             UserInterfaceHelper.OutputLine();
 
-            var actions = SceneParseHelper.GetSceneActions(scene).ToList();
-            PrepareActions(allScenes, scene, actions);
+            var actions = SceneParseHelper.GetSceneActions(env.CurrentScene).ToList();
+            PrepareActions(env, actions);
         }
 
-        private static void PrepareActions(List<Scene> allScenes, Scene currentScene, List<SceneAction> actions)
+        private static void PrepareActions(GameEnvironment env, List<SceneAction> actions)
         {
             if (actions.Count == 0)
             {
@@ -86,11 +99,12 @@ namespace Super_Text_Adventure_Maker.Applications
             if (actions.Count == 1)
             {
                 var nextSceneName = actions.First().NextScene;
-                GoToScene(allScenes, nextSceneName);
+                GoToScene(env, nextSceneName);
                 return;
             }
 
             UserInterfaceHelper.OutputLine(Strings.Game_WhatDoYouDo);
+            UserInterfaceHelper.OutputLine(Strings.Game_Options);
             UserInterfaceHelper.OutputLine();
 
             foreach (var action in actions)
@@ -99,7 +113,37 @@ namespace Super_Text_Adventure_Maker.Applications
             }
 
             var actionDict = actions.ToDictionary(action => action.Abbreviation);
-            ChooseAction(allScenes, currentScene, actionDict);
+            ChooseAction(env, actionDict);
+        }
+
+        private static void RunUtility(GameEnvironment env, string input)
+        {
+            var command = input.TrimStart(':');
+
+            switch (command)
+            {
+                case "s":
+                    // Save game
+                    SaveGame(env.CurrentScene);
+                    break;
+                case "q":
+                    // Quit game
+                    return;
+                case "r":
+                    // Reset game
+                    Init(env.AllScenes);
+                    return;
+                default:
+                    UserInterfaceHelper.OutputLine(Strings.Game_InvalidOption);
+                    UserInterfaceHelper.Pause();
+                    PlayScene(env);
+                    return;
+            }
+        }
+
+        private static void SaveGame(Scene currentScene)
+        {
+            
         }
 
         private static void ShowActionResult(SceneAction action)

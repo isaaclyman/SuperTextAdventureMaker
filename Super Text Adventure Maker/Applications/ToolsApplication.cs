@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Super_Text_Adventure_Maker.Configuration;
 using Super_Text_Adventure_Maker.DTOs;
+using Super_Text_Adventure_Maker.FileSystem;
 using Super_Text_Adventure_Maker.Parsing;
 using Super_Text_Adventure_Maker.UserInterface;
 using Super_Text_Adventure_Maker.Validation;
@@ -13,6 +16,8 @@ namespace Super_Text_Adventure_Maker.Applications
     {
         public static void Initialize()
         {
+            UserInterfaceHelper.SetTitle(Strings.Tools_Title);
+
             UserInterfaceHelper.OutputLine(Strings.Tools_Welcome);
             UserInterfaceHelper.OutputLine();
             ShowMenu(false);
@@ -152,7 +157,8 @@ namespace Super_Text_Adventure_Maker.Applications
 
         private static void ShowHelp()
         {
-            UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
+            UserInterfaceHelper.OutputLine(Strings.Tools_OpeningWebHelp);
+            Process.Start("https://github.com/isaaclyman/SuperTextAdventureMaker/wiki");
             UserInterfaceHelper.Pause();
             ShowMenu();
         }

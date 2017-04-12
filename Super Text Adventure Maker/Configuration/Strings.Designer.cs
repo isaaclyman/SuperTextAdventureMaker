@@ -70,6 +70,33 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to That&apos;s not a valid option..
+        /// </summary>
+        internal static string Game_InvalidOption {
+            get {
+                return ResourceManager.GetString("Game_InvalidOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (:s) to save the game, (:q) to quit, (:r) to reset the game and start over..
+        /// </summary>
+        internal static string Game_Options {
+            get {
+                return ResourceManager.GetString("Game_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to STAM.
+        /// </summary>
+        internal static string Game_Title {
+            get {
+                return ResourceManager.GetString("Game_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What do you do?.
         /// </summary>
         internal static string Game_WhatDoYouDo {
@@ -129,6 +156,33 @@ namespace Super_Text_Adventure_Maker.Configuration {
         internal static string General_Scene {
             get {
                 return ResourceManager.GetString("General_Scene", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (.
+        /// </summary>
+        internal static string Help_Menu {
+            get {
+                return ResourceManager.GetString("Help_Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HELP.
+        /// </summary>
+        internal static string Help_Welcome {
+            get {
+                return ResourceManager.GetString("Help_Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What do you need help with?.
+        /// </summary>
+        internal static string Help_WhatToDo {
+            get {
+                return ResourceManager.GetString("Help_WhatToDo", resourceCulture);
             }
         }
         
@@ -202,6 +256,25 @@ namespace Super_Text_Adventure_Maker.Configuration {
         internal static string Tools_NoProjectFound {
             get {
                 return ResourceManager.GetString("Tools_NoProjectFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening the project documentation in your web browser.
+        ///If this doesn&apos;t work, visit https://github.com/isaaclyman/SuperTextAdventureMaker/blob/master/README.md.
+        /// </summary>
+        internal static string Tools_OpeningWebHelp {
+            get {
+                return ResourceManager.GetString("Tools_OpeningWebHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to STAM - Tools.
+        /// </summary>
+        internal static string Tools_Title {
+            get {
+                return ResourceManager.GetString("Tools_Title", resourceCulture);
             }
         }
         
