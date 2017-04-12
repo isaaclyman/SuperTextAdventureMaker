@@ -117,16 +117,16 @@ multiple files (one scene per file is best) and multiple folders.
 This project should produce a Windows executable that is usable by people with no programming knowledge. It will 
 do the following:
 - Recursively search text files in a given folder. All files ending in ".txt", ".text", or ".stam" will be concatenated 
-together in memory.
-- Parse these files using a simple, proprietary syntax.
-- Provide human-readable error messages when unexpected syntax is discovered.
-- Interpret named scene descriptions, actions (with shortcut keys) and action results from the concatenated files.
-- Present these in a procedural format in the console, providing a retro text gaming experience.
-- Allow the user to choose actions for each scene.
+together in memory. (DONE)
+- Parse these files using a simple, proprietary syntax. (DONE)
+- Provide human-readable error messages when unexpected syntax is discovered. (DONE)
+- Interpret named scene descriptions, actions (with shortcut keys) and action results from the concatenated files. (DONE)
+- Present these in a procedural format in the console, providing a retro text gaming experience. (DONE)
+- Allow the user to choose actions for each scene. (DONE)
 - Allow the user to backtrack, reset the game, or save the game and resume it later.
 - When the creator is satisfied with the adventure, allow them to package the concatenated game file into a single file for
 distribution. This file will be Base64 encoded (but not encrypted), to add a slight layer of protection against players
-spoiling the ending. The file extension will be ".stam.game".
+spoiling the ending. The file extension will be ".stam.game". (DONE)
 
 ### Roadmap for the future
 Some nice-to-haves:
