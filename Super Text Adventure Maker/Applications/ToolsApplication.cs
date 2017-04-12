@@ -102,6 +102,44 @@ namespace Super_Text_Adventure_Maker.Applications
             return ChooseProject(projects);
         }
 
+        private static string ChooseSaveGame(List<string> saveGames)
+        {
+            if (saveGames.Count < 1)
+            {
+                UserInterfaceHelper.OutputLine(Strings.Tools_NoSaveGameFound);
+                UserInterfaceHelper.Pause();
+                return null;
+            }
+
+            if (saveGames.Count == 1)
+            {
+                return saveGames.First();
+            }
+
+            UserInterfaceHelper.OutputLine();
+            UserInterfaceHelper.OutputLine(Strings.Tools_ChooseSaveGame);
+            UserInterfaceHelper.OutputLine();
+
+            for (var index = 0; index < saveGames.Count; index++)
+            {
+                UserInterfaceHelper.OutputLine($"({index + 1}) {saveGames[index]}");
+            }
+
+            UserInterfaceHelper.OutputLine();
+            int choice;
+            var choiceIsInt = int.TryParse(UserInterfaceHelper.GetInput(), out choice);
+
+            if (choiceIsInt && choice > 0 && choice <= saveGames.Count)
+            {
+                return saveGames[choice - 1];
+            }
+
+            // If an invalid number was chosen, show an error and try again.
+            UserInterfaceHelper.OutputLine(Strings.Tools_InvalidEntry);
+            UserInterfaceHelper.Pause();
+            return ChooseSaveGame(saveGames);
+        }
+
         private static void CreatePackage()
         {
             var projects = FileSystemHelper.GetStamProjects();
@@ -122,20 +160,22 @@ namespace Super_Text_Adventure_Maker.Applications
 
             var scenes = FileParseHelper.GetScenes(files).ToList();
 
-            UserInterfaceHelper.OutputLine(Strings.Tools_EnterPackageName);
-            var filename = UserInterfaceHelper.GetInput().Trim().TrimStart('/', '\\');
-            var path = Path.Combine(FileSystemHelper.GetCurrentPath(), filename);
-            FileSystemHelper.WritePackage(scenes, path);
-            UserInterfaceHelper.OutputLine(Strings.General_Done);
-            UserInterfaceHelper.Pause();
-
+            FileSystemHelper.WritePackage(scenes);
             ShowMenu();
         }
 
         private static void LoadSaved()
         {
-            UserInterfaceHelper.OutputLine(Strings.General_ComingSoon);
-            UserInterfaceHelper.Pause();
+            var saveGames = FileSystemHelper.SearchSaveGames(FileSystemHelper.GetCurrentPath()).ToList();
+            var path = ChooseSaveGame(saveGames);
+            if (path == null)
+            {
+                ShowMenu();
+                return;
+            }
+
+            var env = FileSystemHelper.ReadSavedGame(path);
+            GameApplication.Init(env.AllScenes, env.PackageName, env.CurrentScene);
             ShowMenu();
         }
 
@@ -151,7 +191,7 @@ namespace Super_Text_Adventure_Maker.Applications
 
             var scenes = FileSystemHelper.ReadPackage(path);
 
-            GameApplication.Init(scenes);
+            GameApplication.Init(scenes, path);
             ShowMenu();
         }
 
@@ -224,7 +264,7 @@ namespace Super_Text_Adventure_Maker.Applications
             }
 
             var scenes = FileParseHelper.GetScenes(files).ToList();
-            GameApplication.Init(scenes);
+            GameApplication.Init(scenes, null);
             ShowMenu();
         }
 

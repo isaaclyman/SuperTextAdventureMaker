@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Super_Text_Adventure_Maker.Configuration;
 using Super_Text_Adventure_Maker.DTOs;
+using Super_Text_Adventure_Maker.FileSystem;
 using Super_Text_Adventure_Maker.Parsing;
 using Super_Text_Adventure_Maker.UserInterface;
 
@@ -10,14 +11,15 @@ namespace Super_Text_Adventure_Maker.Applications
 {
     public static class GameApplication
     {
-        public static void Init(List<Scene> scenes)
+        public static void Init(List<Scene> scenes, string packageName, Scene currentScene = null)
         {
             UserInterfaceHelper.SetTitle(Strings.Game_Title);
 
             var env = new GameEnvironment
             {
                 AllScenes = scenes,
-                CurrentScene = GetEntryScene(scenes)
+                CurrentScene = currentScene ?? GetEntryScene(scenes),
+                PackageName = packageName
             };
             PlayScene(env);
         }
@@ -124,14 +126,14 @@ namespace Super_Text_Adventure_Maker.Applications
             {
                 case "s":
                     // Save game
-                    SaveGame(env.CurrentScene);
-                    break;
+                    SaveGame(env);
+                    return;
                 case "q":
                     // Quit game
                     return;
                 case "r":
                     // Reset game
-                    Init(env.AllScenes);
+                    Init(env.AllScenes, env.PackageName);
                     return;
                 default:
                     UserInterfaceHelper.OutputLine(Strings.Game_InvalidOption);
@@ -141,9 +143,17 @@ namespace Super_Text_Adventure_Maker.Applications
             }
         }
 
-        private static void SaveGame(Scene currentScene)
+        private static void SaveGame(GameEnvironment env)
         {
-            
+            // If testing a local build, create a package first
+            if (string.IsNullOrEmpty(env.PackageName))
+            {
+                UserInterfaceHelper.OutputLine(Strings.Game_MustCreatePackage);
+                var package = FileSystemHelper.WritePackage(env.AllScenes);
+                env.PackageName = package;
+            }
+
+            FileSystemHelper.WriteSavedGame(env);
         }
 
         private static void ShowActionResult(SceneAction action)

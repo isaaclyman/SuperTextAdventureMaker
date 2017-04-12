@@ -6,5 +6,6 @@ namespace Super_Text_Adventure_Maker.DTOs
     {
         public List<Scene> AllScenes { get; set; }
         public Scene CurrentScene { get; set; }
+        public string PackageName { get; set; }
     }
 }

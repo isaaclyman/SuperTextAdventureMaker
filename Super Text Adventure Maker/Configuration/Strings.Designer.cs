@@ -61,6 +61,24 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to What would you like to call the game package? (Filename only, no extension.).
+        /// </summary>
+        internal static string Files_EnterPackageName {
+            get {
+                return ResourceManager.GetString("Files_EnterPackageName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What would you like to call this saved game? (Filename only, no extension.).
+        /// </summary>
+        internal static string Files_EnterSaveGameName {
+            get {
+                return ResourceManager.GetString("Files_EnterSaveGameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to That doesn&apos;t work..
         /// </summary>
         internal static string Game_InvalidAction {
@@ -75,6 +93,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         internal static string Game_InvalidOption {
             get {
                 return ResourceManager.GetString("Game_InvalidOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;ll need to create a game package before you can save your game..
+        /// </summary>
+        internal static string Game_MustCreatePackage {
+            get {
+                return ResourceManager.GetString("Game_MustCreatePackage", resourceCulture);
             }
         }
         
@@ -205,11 +232,11 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What would you like to call the game package? (Filename only, no extension.).
+        ///   Looks up a localized string similar to Which saved game would you like to load?.
         /// </summary>
-        internal static string Tools_EnterPackageName {
+        internal static string Tools_ChooseSaveGame {
             get {
-                return ResourceManager.GetString("Tools_EnterPackageName", resourceCulture);
+                return ResourceManager.GetString("Tools_ChooseSaveGame", resourceCulture);
             }
         }
         
@@ -256,6 +283,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         internal static string Tools_NoProjectFound {
             get {
                 return ResourceManager.GetString("Tools_NoProjectFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No saved games were found..
+        /// </summary>
+        internal static string Tools_NoSaveGameFound {
+            get {
+                return ResourceManager.GetString("Tools_NoSaveGameFound", resourceCulture);
             }
         }
         
