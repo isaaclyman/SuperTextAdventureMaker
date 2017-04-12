@@ -133,6 +133,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Which package would you like to load?.
         /// </summary>
         internal static string Tools_ChoosePackage {
@@ -184,6 +193,15 @@ namespace Super_Text_Adventure_Maker.Configuration {
         internal static string Tools_Menu {
             get {
                 return ResourceManager.GetString("Tools_Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No game packages found..
+        /// </summary>
+        internal static string Tools_NoPackageFound {
+            get {
+                return ResourceManager.GetString("Tools_NoPackageFound", resourceCulture);
             }
         }
         

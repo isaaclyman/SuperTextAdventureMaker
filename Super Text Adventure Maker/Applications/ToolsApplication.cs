@@ -20,6 +20,13 @@ namespace Super_Text_Adventure_Maker.Applications
 
         private static string ChoosePackage(List<string> packages)
         {
+            if (packages.Count < 1)
+            {
+                UserInterfaceHelper.OutputLine(Strings.Tools_NoPackageFound);
+                UserInterfaceHelper.Pause();
+                return null;
+            }
+
             if (packages.Count == 1)
             {
                 UserInterfaceHelper.OutputLine(string.Format(Strings.Tools_LoadingOnlyPackage, packages.First()));
@@ -118,6 +125,12 @@ namespace Super_Text_Adventure_Maker.Applications
         {
             var packages = FileSystemHelper.SearchPackages(FileSystemHelper.GetCurrentPath()).ToList();
             var path = ChoosePackage(packages);
+            if (path == null)
+            {
+                ShowMenu();
+                return;
+            }
+
             var scenes = FileSystemHelper.ReadPackage(path);
 
             GameApplication.Init(scenes);
